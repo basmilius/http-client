@@ -1,5 +1,3 @@
-export type { IResponseErrors } from './IResponseErrors';
-
 export { BaseResponse } from './BaseResponse';
 export { BaseService } from './BaseService';
 export { HttpClient } from './HttpClient';

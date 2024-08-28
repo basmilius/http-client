@@ -1,13 +1,8 @@
-import type { IResponseErrors } from '@/http';
 import type { HttpStatusCode } from '@/enum';
 
 export class BaseResponse<T> {
     get data(): T {
         return this.#data;
-    }
-
-    get errors(): IResponseErrors | null {
-        return this.#errors;
     }
 
     get headers(): Headers {
@@ -27,12 +22,10 @@ export class BaseResponse<T> {
     }
 
     readonly #data: T;
-    readonly #errors: IResponseErrors;
     readonly #response: Response;
 
-    constructor(data: T, errors: IResponseErrors | null, response: Response) {
+    constructor(data: T, response: Response) {
         this.#data = data;
-        this.#errors = errors;
         this.#response = response;
     }
 }

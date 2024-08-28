@@ -1,28 +1,33 @@
-import type { IResponseErrors } from '@/http';
 import { dto } from '@/decorator';
-import { HttpStatusCode } from '@/enum';
+import type { HttpStatusCode } from '@/enum';
 
 @dto
 export class RequestError {
-    get errors(): IResponseErrors {
-        return this.#errors;
+    get code(): number {
+        return this.#code;
     }
 
-    get message(): string {
-        return this.#message;
+    get error(): string {
+        return this.#error;
+    }
+
+    get errorDescription(): string {
+        return this.#errorDescription;
     }
 
     get statusCode(): HttpStatusCode {
         return this.#statusCode;
     }
 
-    readonly #errors: IResponseErrors;
-    readonly #message: string;
+    readonly #code: number;
+    readonly #error: string;
+    readonly #errorDescription: string;
     readonly #statusCode: HttpStatusCode;
 
-    constructor(message: string, errors: IResponseErrors, statusCode: HttpStatusCode) {
-        this.#errors = errors;
-        this.#message = message;
+    constructor(code: number, error: string, errorDescription: string, statusCode: HttpStatusCode) {
+        this.#code = code;
+        this.#error = error;
+        this.#errorDescription = errorDescription;
         this.#statusCode = statusCode;
     }
 }

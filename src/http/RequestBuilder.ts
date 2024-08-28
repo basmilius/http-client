@@ -2,7 +2,7 @@ import { HttpAdapter } from '@/adapter';
 import { BlobResponse, Paginated } from '@/dto';
 import { HttpMethod, HttpStatusCode } from '@/enum';
 import { formatFileDateTime } from '@/util';
-import { BaseResponse, HttpClient, type IResponseErrors, QueryString, RequestError } from '.';
+import { BaseResponse, HttpClient, QueryString, RequestError } from '.';
 
 export class RequestBuilder {
     get client(): HttpClient {
@@ -105,9 +105,13 @@ export class RequestBuilder {
         let response = await this.#execute();
 
         if (response.status !== HttpStatusCode.Ok) {
-            const {errors} = await response.json();
-            const responseErrors = errors as IResponseErrors;
-            throw new RequestError('Request failed.', responseErrors, response.status);
+            const data = await response.json();
+
+            if ('code' in data && 'error' in data && 'error_description' in data) {
+                throw new RequestError(data.code, data.error, data.error_description, response.status);
+            }
+
+            throw new RequestError(-1, 'failed_without_info', 'Request failed without any information from the backend.', response.status);
         }
 
         let filename = response.headers.has('content-disposition')
@@ -123,7 +127,7 @@ export class RequestBuilder {
     public async runAdapter<TResult extends {}>(adapterMethod: (item: object) => TResult): Promise<BaseResponse<TResult>> {
         const {data, response} = await this.#executeSafe<TResult>();
 
-        return new BaseResponse(adapterMethod(data), null, response);
+        return new BaseResponse(adapterMethod(data), response);
     }
 
     public async runArrayAdapter<TResult extends {}>(adapterMethod: (item: object) => TResult): Promise<BaseResponse<TResult[]>> {
@@ -145,7 +149,7 @@ export class RequestBuilder {
     public async runDataKey<TResult extends object, TKey extends keyof TResult = keyof TResult>(key: TKey): Promise<BaseResponse<TResult[TKey]>> {
         const {data, response} = await this.#executeSafe<TResult>();
 
-        return new BaseResponse(data[key] as TResult[TKey], null, response);
+        return new BaseResponse(data[key] as TResult[TKey], response);
     }
 
     public async runStatusCode(): Promise<HttpStatusCode> {
@@ -171,48 +175,40 @@ export class RequestBuilder {
     }
 
     async #executeSafe<TResult>(): Promise<BaseResponse<TResult>> {
-        const response = await this
+        return await this
             .#execute()
             .then(RequestBuilder.#handleResponse<TResult>)
             .then(response => {
                 this.#client.onResponse(response);
                 return response;
             });
-
-        const {errors, statusCode} = response;
-
-        if (statusCode < HttpStatusCode.Ok || statusCode >= HttpStatusCode.MultipleChoices) {
-            if (!!errors) {
-                throw new RequestError('Request failed with errors.', errors, statusCode);
-            }
-
-            throw new RequestError('Request failed without errors.', {}, statusCode);
-        }
-
-        return response;
     }
 
     static async #handleResponse<TResult>(response: Response): Promise<BaseResponse<TResult | null>> {
         if (response.status === HttpStatusCode.NoContent) {
-            return new BaseResponse(null, null, response);
+            return new BaseResponse(null, response);
         }
 
         if (response.headers.has('content-type') && response.headers.get('content-type').startsWith('application/json')) {
-            const {data, errors} = await response.json();
+            const data = await response.json();
 
-            return new BaseResponse(data, errors, response);
+            if ('code' in data && 'error' in data && 'error_description' in data) {
+                throw new RequestError(data.code, data.error, data.error_description, response.status);
+            }
+
+            return new BaseResponse(data, response);
         }
 
         if (response.status === HttpStatusCode.Unauthorized || response.status === HttpStatusCode.Forbidden) {
-            return new BaseResponse(null, null, response);
+            return new BaseResponse(null, response);
         }
 
         const data = await response.text();
 
         if (data.length === 0 && response.status >= HttpStatusCode.Ok && response.status < HttpStatusCode.MultipleChoices) {
-            return new BaseResponse(null, null, response);
+            return new BaseResponse(null, response);
         }
 
-        throw new RequestError('Response was not a JSON response.', {}, response.status);
+        throw new RequestError(-1, 'not_a_json_response', 'The response was not a JSON response.', response.status);
     }
 }
