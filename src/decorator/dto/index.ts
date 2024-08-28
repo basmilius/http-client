@@ -1,0 +1,100 @@
+import { Constructor, getPrototypeChain, setObjectMethod, setObjectValue } from '@/util';
+import { OVERRIDE_CONSOLE_LOG } from './constant';
+import { instance, isDto } from './helper';
+import { ARGS, DESCRIPTORS, NAME, PROPERTIES } from './symbols';
+import classProxy from './classProxy';
+import type DtoInstance from './instance';
+import clone from './clone';
+import fill from './fill';
+import toJSON from './toJSON';
+
+/**
+ * Provides reactivity to the decorated class.
+ */
+export default function <T extends Constructor>(clazz: T): T {
+    validate(clazz);
+
+    const descriptors = Object.freeze(getPrototypeChain(clazz));
+    const properties = Object.keys(descriptors);
+
+    setObjectValue(clazz.prototype, DESCRIPTORS, descriptors);
+    setObjectValue(clazz.prototype, NAME, clazz.name);
+    setObjectValue(clazz.prototype, PROPERTIES, properties);
+    setObjectValue(clazz, Symbol.hasInstance, (instance: unknown) => typeof instance === 'object' && instance?.[NAME] === clazz.name);
+
+    setObjectMethod(clazz, 'clone', clone<T>);
+    setObjectMethod(clazz, 'fill', fill);
+    setObjectMethod(clazz, 'toJSON', toJSON);
+
+    return proxy(clazz);
+}
+
+export {
+    assertDto,
+    cloneDto,
+    executeIfDtoDirtyAndMarkClean,
+    isDto,
+    isDtoClean,
+    isDtoDirty,
+    markDtoClean,
+    markDtoDirty,
+    relateDtoTo,
+    relateValueTo,
+    trackDto,
+    triggerDto
+} from './helper';
+
+export const DTO_CLASS_MAP: Record<string, Constructor<DtoInstance<unknown>>> = {};
+
+export {
+    ARGS,
+    NAME,
+    PROPERTIES
+};
+
+export type {
+    DtoInstance
+};
+
+function proxy<T extends Constructor>(clazz: T): T {
+    const proxied = new Proxy(clazz, classProxy) as T;
+
+    DTO_CLASS_MAP[clazz.name] = proxied as unknown as Constructor<DtoInstance<unknown>>;
+
+    return proxied;
+}
+
+function validate(clazz: Function): void {
+    const parent = Object.getPrototypeOf(clazz.prototype);
+
+    if (NAME in parent) {
+        throw new Error(`⛔️ @dto ${clazz.name} cannot extend parent @dto ${parent[NAME]}. A non-dto base implementation should be created with separate implementations. TL;DR a class marked as @dto cannot extend another @dto class.`);
+    }
+}
+
+if (OVERRIDE_CONSOLE_LOG) {
+    const _error = console.error.bind(console);
+    const _info = console.info.bind(console);
+    const _log = console.log.bind(console);
+    const _warn = console.warn.bind(console);
+
+    const override = (fn: Function) => (...args: unknown[]) => {
+        for (let i = args.length - 1; i >= 0; --i) {
+            const arg = args[i];
+
+            if (!isDto(arg)) {
+                continue;
+            }
+
+            const dto = instance(arg);
+            args.splice(i, 1, `📦 ${dto[NAME]}`, dto.toJSON());
+        }
+
+        return fn(...args);
+    };
+
+    console.error = override(_error);
+    console.info = override(_info);
+    console.log = override(_log);
+    console.warn = override(_warn);
+}

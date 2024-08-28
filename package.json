@@ -1,0 +1,41 @@
+{
+    "name": "@basmilius/http-client",
+    "description": "Http client for Vue projects.",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "pnpm esbuild && pnpm gentypes",
+        "dev": "pnpm esbuild && concurrently -k -c magenta,cyan,green -n code,types,alias 'pnpm esbuild:watch' 'tsc -w' 'tsc-alias -w'",
+        "esbuild": "esbuild src/index.ts --bundle --sourcemap --target=esnext --external:luxon --external:vue --platform=neutral --format=esm --outfile=dist/basmilius.httpClient.js",
+        "esbuild:watch": "pnpm esbuild --watch",
+        "gentypes": "tsc && tsc-alias"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "files": [
+        "dist/*"
+    ],
+    "type": "module",
+    "main": "./dist/basmilius.httpClient.js",
+    "module": "./dist/basmilius.httpClient.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/basmilius.httpClient.js"
+        }
+    },
+    "devDependencies": {
+        "@types/luxon": "^3.4.2",
+        "concurrently": "^8.2.2",
+        "esbuild": "^0.23.1",
+        "luxon": "^3.5.0",
+        "tsc-alias": "^1.8.10",
+        "typescript": "^5.5.4",
+        "vue": "^3.4.38"
+    },
+    "peerDependencies": {
+        "luxon": "^3.5.0",
+        "vue": "^3.4.38"
+    }
+}
