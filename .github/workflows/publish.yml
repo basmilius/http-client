@@ -15,7 +15,7 @@ jobs:
         with:
           version: 9
 
-      - name: ✨ Setup node 21.x
+      - name: ✨ Setup node 22.x
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
@@ -29,6 +29,6 @@ jobs:
         run: pnpm build
 
       - name: 🚀 Publish
-        run: pnpm run publish
+        run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
