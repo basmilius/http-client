@@ -1,8 +1,10 @@
 import adapter from './adapter';
+import bound from './bound';
 import debounce from './debounce';
 
 export {
     adapter,
+    bound,
     debounce
 };
 
@@ -25,4 +27,4 @@ export {
     relateValueTo,
     trackDto,
     triggerDto
-} from './dto/index';
+} from './dto';

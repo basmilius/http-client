@@ -1,7 +1,7 @@
 {
     "name": "@basmilius/http-client",
     "description": "Http client for Vue projects.",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "scripts": {
         "build": "pnpm esbuild && pnpm gentypes",
         "dev": "pnpm esbuild && concurrently -k -c magenta,cyan,green -n code,types,alias 'pnpm esbuild:watch' 'tsc -w' 'tsc-alias -w'",
@@ -11,7 +11,7 @@
         "publish": "pnpm publish --access public --no-git-checks"
     },
     "engines": {
-        "node": ">=20"
+        "node": ">=22"
     },
     "files": [
         "dist/*"
@@ -33,10 +33,10 @@
         "luxon": "^3.5.0",
         "tsc-alias": "^1.8.10",
         "typescript": "^5.5.4",
-        "vue": "^3.4.38"
+        "vue": "^3.5.0"
     },
     "peerDependencies": {
         "luxon": "^3.5.0",
-        "vue": "^3.4.38"
+        "vue": "^3.5.0"
     }
 }
