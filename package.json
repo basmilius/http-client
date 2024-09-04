@@ -1,11 +1,11 @@
 {
     "name": "@basmilius/http-client",
     "description": "Http client for Vue projects.",
-    "version": "1.2.2",
+    "version": "1.3.0",
     "scripts": {
         "build": "pnpm esbuild && pnpm gentypes",
         "dev": "pnpm esbuild && concurrently -k -c magenta,cyan,green -n code,types,alias 'pnpm esbuild:watch' 'tsc -w' 'tsc-alias -w'",
-        "esbuild": "esbuild src/index.ts --bundle --minify --sourcemap --target=esnext --external:luxon --external:vue --platform=browser --format=esm --outfile=dist/basmilius.httpClient.js",
+        "esbuild": "esbuild src/index.ts --bundle --minify --sourcemap --target=esnext --external:luxon --external:vue --platform=browser --format=esm --outfile=dist/basmilius.http.client.js",
         "esbuild:watch": "pnpm esbuild --watch",
         "gentypes": "tsc && tsc-alias"
     },
@@ -16,13 +16,13 @@
         "dist/*"
     ],
     "type": "module",
-    "main": "./dist/basmilius.httpClient.js",
-    "module": "./dist/basmilius.httpClient.js",
+    "main": "./dist/basmilius.http.client.js",
+    "module": "./dist/basmilius.http.client.js",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "default": "./dist/basmilius.httpClient.js"
+            "default": "./dist/basmilius.http.client.js"
         }
     },
     "sideEffects": false,
