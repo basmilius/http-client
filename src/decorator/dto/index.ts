@@ -1,6 +1,7 @@
 import { Constructor, getPrototypeChain, setObjectMethod, setObjectValue } from '@/util';
 import { OVERRIDE_CONSOLE_LOG } from './constant';
 import { instance, isDto } from './helper';
+import { DTO_CLASS_MAP } from './map';
 import { ARGS, DESCRIPTORS, NAME, PROPERTIES } from './symbols';
 import classProxy from './classProxy';
 import type DtoInstance from './instance';
@@ -44,7 +45,10 @@ export {
     triggerDto
 } from './helper';
 
-export const DTO_CLASS_MAP: Record<string, Constructor<DtoInstance<unknown>>> = {};
+export {
+    deserialize,
+    serialize
+} from './serialize';
 
 export {
     ARGS,

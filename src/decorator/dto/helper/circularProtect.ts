@@ -1,5 +1,5 @@
 import type DtoInstance from '../instance';
-import { ENABLE_CIRCULAR_LOGGING } from '@/decorator/dto/constant';
+import { ENABLE_CIRCULAR_LOGGING } from '../constant';
 
 type CircularMap = WeakMap<DtoInstance<unknown>, (string | symbol)[]>;
 const CIRCULAR_MAP = Symbol();

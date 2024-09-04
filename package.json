@@ -5,7 +5,7 @@
     "scripts": {
         "build": "pnpm esbuild && pnpm gentypes",
         "dev": "pnpm esbuild && concurrently -k -c magenta,cyan,green -n code,types,alias 'pnpm esbuild:watch' 'tsc -w' 'tsc-alias -w'",
-        "esbuild": "esbuild src/index.ts --bundle --sourcemap --target=esnext --external:luxon --external:vue --platform=neutral --format=esm --outfile=dist/basmilius.httpClient.js",
+        "esbuild": "esbuild src/index.ts --bundle --minify --sourcemap --target=esnext --external:luxon --external:vue --platform=browser --format=esm --outfile=dist/basmilius.httpClient.js",
         "esbuild:watch": "pnpm esbuild --watch",
         "gentypes": "tsc && tsc-alias",
         "publish": "pnpm publish --access public --no-git-checks"
@@ -26,8 +26,13 @@
             "default": "./dist/basmilius.httpClient.js"
         }
     },
+    "sideEffects": false,
+    "dependencies": {
+        "object-hash": "^3.0.0"
+    },
     "devDependencies": {
         "@types/luxon": "^3.4.2",
+        "@types/object-hash": "^3.0.6",
         "concurrently": "^8.2.2",
         "esbuild": "^0.23.1",
         "luxon": "^3.5.0",

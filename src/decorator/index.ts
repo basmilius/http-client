@@ -14,7 +14,6 @@ export {
     ARGS,
     NAME,
     PROPERTIES,
-    DTO_CLASS_MAP,
     assertDto,
     cloneDto,
     executeIfDtoDirtyAndMarkClean,

@@ -1,17 +1,37 @@
-export { default as areEqual } from './areEqual';
-export { default as assertDto } from './assertDto';
-export { default as circularProtect } from './circularProtect';
-export { default as cloneDto } from './cloneDto';
-export { default as executeIfDtoDirtyAndMarkClean } from './executeIfDtoDirtyAndMarkClean';
-export { default as instance } from './instance';
-export { default as isDto } from './isDto';
-export { default as isDtoClean } from './isDtoClean';
-export { default as isDtoDirty } from './isDtoDirty';
-export { default as markDtoClean } from './markDtoClean';
-export { default as markDtoDirty } from './markDtoDirty';
-export { default as relateDtoTo } from './relateDtoTo';
-export { default as relateValueTo } from './relateValueTo';
-export { default as trackDto } from './trackDto';
-export { default as triggerDto } from './triggerDto';
-export { default as unrelateDtoFrom } from './unrelateDtoFrom';
-export { default as unrelateValueFrom } from './unrelateValueFrom';
+import areEqual from './areEqual';
+import assertDto from './assertDto';
+import circularProtect from './circularProtect';
+import cloneDto from './cloneDto';
+import executeIfDtoDirtyAndMarkClean from './executeIfDtoDirtyAndMarkClean';
+import instance from './instance';
+import isDto from './isDto';
+import isDtoClean from './isDtoClean';
+import isDtoDirty from './isDtoDirty';
+import markDtoClean from './markDtoClean';
+import markDtoDirty from './markDtoDirty';
+import relateDtoTo from './relateDtoTo';
+import relateValueTo from './relateValueTo';
+import trackDto from './trackDto';
+import triggerDto from './triggerDto';
+import unrelateDtoFrom from './unrelateDtoFrom';
+import unrelateValueFrom from './unrelateValueFrom';
+
+export {
+    areEqual,
+    assertDto,
+    circularProtect,
+    cloneDto,
+    executeIfDtoDirtyAndMarkClean,
+    instance,
+    isDto,
+    isDtoClean,
+    isDtoDirty,
+    markDtoClean,
+    markDtoDirty,
+    relateDtoTo,
+    relateValueTo,
+    trackDto,
+    triggerDto,
+    unrelateDtoFrom,
+    unrelateValueFrom
+};
