@@ -9,7 +9,7 @@ projects. It requires you to create dto's for objects and services for api calls
 
 ## ⚠️ Requirements
 
-- Install Node.js ^20
+- Install Node.js ^22
 - Install pnpm using `npm i -g pnpm`.
 - Use `pnpm install` to install the required packages.
 - Use `pnpm dev` to start a build watcher for both targets.
