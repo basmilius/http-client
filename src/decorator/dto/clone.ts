@@ -1,5 +1,6 @@
 import { assertDto, isDto } from './helper';
-import { ARGS, DESCRIPTORS } from './symbols';
+import { ARGS, DESCRIPTORS, NAME } from './symbols';
+import { DTO_CLASS_MAP } from './map';
 import type DtoInstance from './instance';
 
 /**
@@ -9,7 +10,8 @@ export default function <T>(this: DtoInstance<T>): DtoInstance<T> {
     const instance = this;
     assertDto(instance);
 
-    const clone = Reflect.construct(instance.prototype.constructor, instance[ARGS]);
+    const clazz = DTO_CLASS_MAP[instance[NAME]];
+    const clone = new clazz(...instance[ARGS]);
 
     Object.entries(this[DESCRIPTORS])
         .filter(([, descriptor]) => !!descriptor.set)

@@ -1,12 +1,11 @@
 {
     "name": "@basmilius/http-client",
     "description": "Http client for Vue projects.",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "scripts": {
         "build": "pnpm esbuild && pnpm gentypes",
-        "dev": "pnpm esbuild && concurrently -k -c magenta,cyan,green -n code,types,alias 'pnpm esbuild:watch' 'tsc -w' 'tsc-alias -w'",
+        "dev": "pnpm esbuild --watch",
         "esbuild": "esbuild src/index.ts --bundle --minify --metafile=meta.json --sourcemap --target=esnext --external:luxon --external:vue --platform=browser --format=esm --outfile=dist/basmilius.http.client.js",
-        "esbuild:watch": "pnpm esbuild --watch",
         "gentypes": "tsc --noCheck && tsc-alias"
     },
     "engines": {
@@ -28,7 +27,6 @@
     "sideEffects": false,
     "devDependencies": {
         "@types/luxon": "^3.4.2",
-        "concurrently": "^9.0.1",
         "esbuild": "^0.23.1",
         "luxon": "^3.5.0",
         "tsc-alias": "^1.8.10",
