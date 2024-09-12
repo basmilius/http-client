@@ -2,11 +2,11 @@ import { Constructor, getPrototypeChain, setObjectMethod, setObjectValue } from 
 import { OVERRIDE_CONSOLE_LOG } from './constant';
 import { instance, isDto } from './helper';
 import { DTO_CLASS_MAP } from './map';
-import { ARGS, DESCRIPTORS, NAME, PROPERTIES } from './symbols';
+import { DESCRIPTORS, NAME, PROPERTIES } from './symbols';
 import classProxy from './classProxy';
-import type DtoInstance from './instance';
 import clone from './clone';
 import fill from './fill';
+import type DtoInstance from './instance';
 import toJSON from './toJSON';
 
 /**
@@ -30,32 +30,6 @@ export default function <T extends Constructor>(clazz: T): T {
     return proxy(clazz);
 }
 
-export {
-    assertDto,
-    cloneDto,
-    executeIfDtoDirtyAndMarkClean,
-    isDto,
-    isDtoClean,
-    isDtoDirty,
-    markDtoClean,
-    markDtoDirty,
-    relateDtoTo,
-    relateValueTo,
-    trackDto,
-    triggerDto
-} from './helper';
-
-export {
-    deserialize,
-    serialize
-} from './serialize';
-
-export {
-    ARGS,
-    NAME,
-    PROPERTIES
-};
-
 export type {
     DtoInstance
 };
@@ -72,7 +46,7 @@ function validate(clazz: Function): void {
     const parent = Object.getPrototypeOf(clazz.prototype);
 
     if (NAME in parent) {
-        throw new Error(`⛔️ @dto ${clazz.name} cannot extend parent @dto ${parent[NAME]}. A non-dto base implementation should be created with separate implementations. TL;DR a class marked as @dto cannot extend another @dto class.`);
+        throw new Error(`⛔️ @dto ${clazz.name} cannot extend parent class which is also decorated with @dto ${parent[NAME]}.`);
     }
 }
 

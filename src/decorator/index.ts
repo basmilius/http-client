@@ -1,19 +1,16 @@
 import adapter from './adapter';
 import bound from './bound';
 import debounce from './debounce';
+import dto from './dto';
 
 export {
     adapter,
     bound,
-    debounce
+    debounce,
+    dto
 };
 
 export {
-    default as dto,
-    type DtoInstance,
-    ARGS,
-    NAME,
-    PROPERTIES,
     assertDto,
     cloneDto,
     executeIfDtoDirtyAndMarkClean,
@@ -21,9 +18,14 @@ export {
     isDtoClean,
     isDtoDirty,
     markDtoClean,
-    markDtoDirty,
-    relateDtoTo,
-    relateValueTo,
-    trackDto,
-    triggerDto
+    markDtoDirty
+} from './dto/helper';
+
+export {
+    deserialize,
+    serialize
+} from './dto/serialize';
+
+export type {
+    DtoInstance
 } from './dto';

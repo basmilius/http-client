@@ -1,4 +1,4 @@
-export class QueryString {
+export default class QueryString {
     readonly #builder: URLSearchParams;
 
     constructor() {

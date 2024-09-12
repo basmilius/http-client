@@ -1,8 +1,8 @@
 import { ENABLE_GET_LOGGING, ENABLE_SET_LOGGING } from './constant';
 import { areEqual, markDtoDirty, relateValueTo, trackDto, triggerDto, unrelateValueFrom } from './helper';
 import { DESCRIPTORS, NAME, PROPERTIES, PROXY } from './symbols';
-import type DtoInstance from './instance';
 import arrayProxy from './arrayProxy';
+import type DtoInstance from './instance';
 
 export default {
     /**

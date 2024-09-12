@@ -1,6 +1,6 @@
 import { assertDto, isDto } from './helper';
-import type DtoInstance from './instance';
 import { ARGS, DESCRIPTORS } from './symbols';
+import type DtoInstance from './instance';
 
 /**
  * Returns a clone of the dto.

@@ -1,5 +1,4 @@
-import { HttpStatusCode } from '@/enum';
-import { RequestError } from '@/http';
+import RequestError from './RequestError';
 
 export function isRequestError(obj: unknown): obj is RequestError {
     return obj instanceof RequestError;
@@ -10,5 +9,5 @@ export function isUnsanctionedRequest(statusCode: unknown): boolean {
         statusCode = statusCode.statusCode;
     }
 
-    return statusCode === HttpStatusCode.Forbidden || statusCode === HttpStatusCode.Unauthorized;
+    return statusCode === 403 || statusCode === 401;
 }

@@ -1,5 +1,5 @@
 export default function (interval: number) {
-    return (target: object, method: string, descriptor: PropertyDescriptor) => {
+    return (target: object, _: string, descriptor: PropertyDescriptor) => {
         descriptor.value = debounce(descriptor.value, interval, target);
     };
 }

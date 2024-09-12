@@ -1,7 +1,7 @@
 import { customRef, markRaw } from 'vue';
 import type { Constructor } from '@/util';
 import { ARGS, DIRTY, TRACK, TRIGGER } from './symbols';
-import DtoInstance from './instance';
+import type DtoInstance from './instance';
 import arrayProxy from './arrayProxy';
 import instanceProxy from './instanceProxy';
 import refProxy from './refProxy';

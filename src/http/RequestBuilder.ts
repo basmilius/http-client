@@ -1,10 +1,13 @@
 import { HttpAdapter } from '@/adapter';
 import { BlobResponse, Paginated } from '@/dto';
-import { HttpMethod, HttpStatusCode } from '@/enum';
+import type { HttpMethod, HttpStatusCode } from '@/type';
 import { formatFileDateTime } from '@/util';
-import { BaseResponse, HttpClient, QueryString, RequestError } from '.';
+import BaseResponse from './BaseResponse';
+import HttpClient from './HttpClient';
+import type QueryString from './QueryString';
+import RequestError from './RequestError';
 
-export class RequestBuilder {
+export default class RequestBuilder {
     get client(): HttpClient {
         return this.#client;
     }
@@ -37,7 +40,7 @@ export class RequestBuilder {
     constructor(path: string, client?: HttpClient) {
         this.#client = client ?? HttpClient.instance;
         this.#options.cache = 'no-cache';
-        this.#options.method = HttpMethod.Get;
+        this.#options.method = 'get';
         this.#path = path;
     }
 
@@ -104,14 +107,14 @@ export class RequestBuilder {
     public async fetchBlob(): Promise<BlobResponse> {
         let response = await this.#execute();
 
-        if (response.status !== HttpStatusCode.Ok) {
+        if (response.status !== 200) {
             const data = await response.json();
 
             if ('code' in data && 'error' in data && 'error_description' in data) {
-                throw new RequestError(data.code, data.error, data.error_description, response.status);
+                throw new RequestError(data.code, data.error, data.error_description, response.status as HttpStatusCode);
             }
 
-            throw new RequestError(-1, 'failed_without_info', 'Request failed without any information from the backend.', response.status);
+            throw new RequestError(-1, 'failed_without_info', 'Request failed without any information from the backend.', response.status as HttpStatusCode);
         }
 
         let filename = response.headers.has('content-disposition')
@@ -122,6 +125,12 @@ export class RequestBuilder {
             await response.blob(),
             filename
         );
+    }
+
+    public async run<TResult extends {}>(): Promise<BaseResponse<TResult>> {
+        const {data, response} = await this.#executeSafe<TResult>();
+
+        return new BaseResponse(data, response);
     }
 
     public async runAdapter<TResult extends {}>(adapterMethod: (item: object) => TResult): Promise<BaseResponse<TResult>> {
@@ -185,7 +194,7 @@ export class RequestBuilder {
     }
 
     static async #handleResponse<TResult>(response: Response): Promise<BaseResponse<TResult | null>> {
-        if (response.status === HttpStatusCode.NoContent) {
+        if (response.status === 204) {
             return new BaseResponse(null, response);
         }
 
@@ -193,22 +202,22 @@ export class RequestBuilder {
             const data = await response.json();
 
             if ('code' in data && 'error' in data && 'error_description' in data) {
-                throw new RequestError(data.code, data.error, data.error_description, response.status);
+                throw new RequestError(data.code, data.error, data.error_description, response.status as HttpStatusCode);
             }
 
             return new BaseResponse(data, response);
         }
 
-        if (response.status === HttpStatusCode.Unauthorized || response.status === HttpStatusCode.Forbidden) {
+        if (response.status === 401 || response.status === 403) {
             return new BaseResponse(null, response);
         }
 
         const data = await response.text();
 
-        if (data.length === 0 && response.status >= HttpStatusCode.Ok && response.status < HttpStatusCode.MultipleChoices) {
+        if (data.length === 0 && response.status >= 200 && response.status < 300) {
             return new BaseResponse(null, response);
         }
 
-        throw new RequestError(-1, 'not_a_json_response', 'The response was not a JSON response.', response.status);
+        throw new RequestError(-1, 'not_a_json_response', 'The response was not a JSON response.', response.status as HttpStatusCode);
     }
 }

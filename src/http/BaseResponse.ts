@@ -1,6 +1,6 @@
-import type { HttpStatusCode } from '@/enum';
+import type { HttpStatusCode } from '@/type';
 
-export class BaseResponse<T> {
+export default class BaseResponse<T> {
     get data(): T {
         return this.#data;
     }
@@ -18,7 +18,7 @@ export class BaseResponse<T> {
     }
 
     get statusCode(): HttpStatusCode {
-        return this.#response.status;
+        return this.#response.status as HttpStatusCode;
     }
 
     readonly #data: T;

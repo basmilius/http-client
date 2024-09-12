@@ -1,8 +1,8 @@
 import { dto } from '@/decorator';
-import type { HttpStatusCode } from '@/enum';
+import type { HttpStatusCode } from '@/type';
 
 @dto
-export class RequestError {
+export default class RequestError {
     get code(): number {
         return this.#code;
     }

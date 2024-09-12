@@ -1,6 +1,7 @@
-import type { BaseResponse, RequestBuilder } from '@/http';
+import type BaseResponse from './BaseResponse';
+import type RequestBuilder from './RequestBuilder';
 
-export class HttpClient {
+export default class HttpClient {
     get authToken(): string | null {
         return this.#authToken;
     }

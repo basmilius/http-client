@@ -1,5 +1,5 @@
 import type { Descriptors } from '@/util';
-import { ARGS, CHILDREN, DESCRIPTORS, DIRTY, NAME, PARENT, PARENT_KEY, PROPERTIES, TRACK, TRIGGER } from './symbols';
+import type { ARGS, CHILDREN, DESCRIPTORS, DIRTY, NAME, PARENT, PARENT_KEY, PROPERTIES, TRACK, TRIGGER } from './symbols';
 
 export default interface DtoInstance<T> extends Function {
     [ARGS]: any[];

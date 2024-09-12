@@ -1,5 +1,5 @@
 import { NAME } from '../symbols';
-import DtoInstance from '../instance';
+import type DtoInstance from '../instance';
 
 /**
  * Checks if the given object is a dto.

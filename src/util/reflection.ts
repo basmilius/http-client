@@ -25,14 +25,6 @@ export function getPrototypeChain(obj: Function): Descriptors {
     return entries;
 }
 
-export function setMutableObjectValue(obj: object, key: symbol | string, value: unknown): void {
-    Object.defineProperty(obj, key, {
-        configurable: false,
-        writable: true,
-        value
-    });
-}
-
 export function setObjectMethod(obj: Function, key: string, fn: Function): void {
     obj.prototype[key] = fn;
 }

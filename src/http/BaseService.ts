@@ -1,6 +1,7 @@
-import { HttpClient, RequestBuilder } from '.';
+import HttpClient from './HttpClient';
+import RequestBuilder from './RequestBuilder';
 
-export class BaseService {
+export default class BaseService {
     protected request(path: string, client?: HttpClient): RequestBuilder {
         return new RequestBuilder(path, client);
     }

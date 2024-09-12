@@ -1,7 +1,7 @@
 import { ENABLE_SERIALIZATION_LOGGING } from '../constant';
 import { DTO_CLASS_MAP } from '../map';
 import type { SerializedDto } from './types';
-import DtoInstance from '../instance';
+import type DtoInstance from '../instance';
 import deserializeArray from './deserializeArray';
 import deserializeObject from './deserializeObject';
 
