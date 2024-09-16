@@ -1,11 +1,11 @@
 {
     "name": "@basmilius/http-client",
     "description": "Http client for Vue projects.",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "scripts": {
         "build": "pnpm esbuild && pnpm gentypes",
         "dev": "pnpm esbuild --watch",
-        "esbuild": "esbuild src/index.ts --bundle --minify --metafile=meta.json --sourcemap --target=esnext --external:luxon --external:vue --platform=browser --format=esm --outfile=dist/basmilius.http.client.js",
+        "esbuild": "esbuild src/index.ts --bundle --minify --metafile=meta.json --sourcemap --target=esnext --external:luxon --external:vue --platform=browser --format=esm --outfile=dist/http-client.js",
         "gentypes": "tsc --noCheck && tsc-alias"
     },
     "engines": {
@@ -15,13 +15,13 @@
         "dist/*"
     ],
     "type": "module",
-    "main": "./dist/basmilius.http.client.js",
-    "module": "./dist/basmilius.http.client.js",
+    "main": "./dist/http-client.js",
+    "module": "./dist/http-client.js",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "default": "./dist/basmilius.http.client.js"
+            "default": "./dist/http-client.js"
         }
     },
     "sideEffects": false,
@@ -31,10 +31,10 @@
         "luxon": "^3.5.0",
         "tsc-alias": "^1.8.10",
         "typescript": "^5.6.2",
-        "vue": "^3.5.4"
+        "vue": "^3.5.6"
     },
     "peerDependencies": {
         "luxon": "^3.5.0",
-        "vue": "^3.5.4"
+        "vue": "^3.5.6"
     }
 }
