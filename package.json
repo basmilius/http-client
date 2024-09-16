@@ -2,6 +2,21 @@
     "name": "@basmilius/http-client",
     "description": "Http client for Vue projects.",
     "version": "1.4.2",
+    "license": "MIT",
+    "funding": "https://github.com/sponsors/basmilius",
+    "homepage": "https://github.com/basmilius/http-client",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/basmilius/http-client.git"
+    },
+    "keywords": [
+        "http",
+        "http client",
+        "http dto",
+        "dto",
+        "vue",
+        "vue 3"
+    ],
     "scripts": {
         "build": "pnpm esbuild && pnpm gentypes",
         "dev": "pnpm esbuild --watch",
@@ -23,6 +38,10 @@
             "types": "./dist/index.d.ts",
             "default": "./dist/http-client.js"
         }
+    },
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
     },
     "sideEffects": false,
     "devDependencies": {
