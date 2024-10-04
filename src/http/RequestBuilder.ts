@@ -76,10 +76,6 @@ export default class RequestBuilder {
         return this;
     }
 
-    public asOrganization(value: string): RequestBuilder {
-        return this.header('X-Organization-Id', value);
-    }
-
     public header(name: string, value: string): RequestBuilder {
         this.#options.headers = this.#options.headers || {};
         this.#options.headers[name] = value;
@@ -168,32 +164,22 @@ export default class RequestBuilder {
     }
 
     async #execute(): Promise<Response> {
-        const request = this.#client.onRequest(this);
+        let path = this.path;
 
-        let path = request.path;
-
-        if (request.query !== null) {
-            path += `?${request.query.build()}`;
+        if (this.query !== null) {
+            path += `?${this.query.build()}`;
         }
 
-        return await fetch(request.client.baseUrl + path, request.options)
-            .catch(err => {
-                this.#client.onException(err, request);
-                throw err;
-            });
+        return await fetch(this.client.baseUrl + path, this.options);
     }
 
     async #executeSafe<TResult>(): Promise<BaseResponse<TResult>> {
         return await this
             .#execute()
-            .then(RequestBuilder.#handleResponse<TResult>)
-            .then(response => {
-                this.#client.onResponse(response);
-                return response;
-            });
+            .then(response => RequestBuilder.#handleResponse<TResult>(response, this.client.dataField));
     }
 
-    static async #handleResponse<TResult>(response: Response): Promise<BaseResponse<TResult | null>> {
+    static async #handleResponse<TResult>(response: Response, dataField: boolean): Promise<BaseResponse<TResult | null>> {
         if (response.status === 204) {
             return new BaseResponse(null, response);
         }
@@ -203,6 +189,10 @@ export default class RequestBuilder {
 
             if ('code' in data && 'error' in data && 'error_description' in data) {
                 throw new RequestError(data.code, data.error, data.error_description, response.status as HttpStatusCode);
+            }
+
+            if (dataField && 'data' in data) {
+                return new BaseResponse(data.data as TResult, response);
             }
 
             return new BaseResponse(data, response);

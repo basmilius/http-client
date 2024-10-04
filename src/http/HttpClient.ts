@@ -1,6 +1,3 @@
-import type BaseResponse from './BaseResponse';
-import type RequestBuilder from './RequestBuilder';
-
 export default class HttpClient {
     get authToken(): string | null {
         return this.#authToken;
@@ -14,32 +11,18 @@ export default class HttpClient {
         return this.#baseUrl;
     }
 
-    get timezone(): string | null {
-        return this.#timezone;
-    }
-
-    set timezone(value: string | null) {
-        this.#timezone = value;
+    get dataField(): boolean {
+        return this.#dataField;
     }
 
     #authToken: string | null;
-    #timezone: string | null;
     readonly #baseUrl: string;
+    readonly #dataField: boolean;
 
-    constructor(authToken: string | null, baseUrl: string) {
+    constructor(authToken: string | null, baseUrl: string, dataField: boolean = false) {
         this.#authToken = authToken;
         this.#baseUrl = baseUrl;
-        this.#timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    }
-
-    onException(err: unknown, caller: unknown): void {
-    }
-
-    onRequest(request: RequestBuilder): RequestBuilder {
-        return request;
-    }
-
-    onResponse(response: BaseResponse<unknown>): void {
+        this.#dataField = dataField;
     }
 
     static get instance(): HttpClient {
