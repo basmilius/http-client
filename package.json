@@ -1,7 +1,7 @@
 {
     "name": "@basmilius/http-client",
     "description": "Http client for Vue projects.",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
     "homepage": "https://github.com/basmilius/http-client",
@@ -50,7 +50,7 @@
         "luxon": "^3.5.0",
         "tsc-alias": "^1.8.10",
         "typescript": "^5.6.3",
-        "vue": "^3.5.10"
+        "vue": "^3.5.12"
     },
     "peerDependencies": {
         "luxon": "^3.5.0",
