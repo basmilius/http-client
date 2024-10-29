@@ -19,8 +19,8 @@ export class HttpAdapter {
             return `download-${formatFileDateTime()}`;
         }
 
-        let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-        let matches = filenameRegex.exec(header);
+        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        const matches = filenameRegex.exec(header);
 
         if ((matches?.length || 0) < 2) {
             return `download-${formatFileDateTime()}`;

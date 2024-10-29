@@ -20,7 +20,7 @@
     "scripts": {
         "build": "pnpm esbuild && pnpm gentypes",
         "dev": "pnpm esbuild --watch",
-        "esbuild": "esbuild src/index.ts --bundle --minify --metafile=meta.json --sourcemap --target=esnext --external:luxon --external:vue --platform=browser --format=esm --outfile=dist/http-client.js",
+        "esbuild": "esbuild src/index.ts --bundle --minify --sourcemap --target=esnext --external:luxon --external:vue --platform=browser --format=esm --outfile=dist/http-client.js",
         "gentypes": "tsc --noCheck && tsc-alias"
     },
     "engines": {
