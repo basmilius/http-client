@@ -1,23 +1,25 @@
-name: Publish Http Client
+name: Publish Any Commit
 
 on:
-    release:
-        types: [ published ]
+    push:
+        branches:
+            - '**'
 
-permissions:
-    id-token: write
+    pull_request:
+        branches:
+            - 'main'
 
 jobs:
-    release:
+    build:
         runs-on: ubuntu-latest
-        name: 🚀 Publish to Registry
+        name: 🚀 Publish to pkg.pr.new
         steps:
-            -   name: 👀 Checkout latest source
+            -   name: 👀 Checkout
                 uses: actions/checkout@v4
 
-            -   uses: pnpm/action-setup@v4
+            -   name: ⚙️ Setup pnpm
+                uses: pnpm/action-setup@v4
                 with:
-                    version: 9
                     run_install: false
 
             -   name: ✨ Setup node 22.x
@@ -34,6 +36,4 @@ jobs:
                 run: pnpm build
 
             -   name: 🚀 Publish
-                run: pnpm publish --access public --no-git-checks
-                env:
-                    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+                run: pnpx pkg-pr-new publish --compact
