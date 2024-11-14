@@ -8,9 +8,9 @@ export class HttpAdapter {
         return new Paginated<T>(
             response['items'].map(adapterMethod),
             response['page'],
-            response['pageSize'],
+            response['page_size'],
             response['pages'],
-            response['totalItems']
+            response['total_items']
         );
     }
 
