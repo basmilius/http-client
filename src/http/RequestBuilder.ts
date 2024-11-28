@@ -40,7 +40,7 @@ export default class RequestBuilder {
     constructor(path: string, client?: HttpClient) {
         this.#client = client ?? HttpClient.instance;
         this.#options.cache = 'no-cache';
-        this.#options.method = 'get';
+        this.#options.method = 'GET';
         this.#path = path;
     }
 
@@ -84,7 +84,7 @@ export default class RequestBuilder {
     }
 
     public method(method: HttpMethod): RequestBuilder {
-        this.#options.method = method;
+        this.#options.method = method.toUpperCase();
 
         return this;
     }
