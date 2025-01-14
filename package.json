@@ -21,10 +21,10 @@
         "build": "pnpm esbuild && pnpm gentypes",
         "dev": "pnpm esbuild --watch",
         "esbuild": "esbuild src/index.ts --bundle --minify --sourcemap --target=esnext --external:luxon --external:vue --platform=browser --format=esm --outfile=dist/http-client.js",
-        "gentypes": "tsc --noCheck && tsc-alias"
+        "gentypes": "tsc && tsc-alias"
     },
     "engines": {
-        "node": ">=22"
+        "node": ">=23"
     },
     "files": [
         "dist/*"
