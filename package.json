@@ -1,7 +1,7 @@
 {
     "name": "@basmilius/http-client",
     "description": "Http client for Vue projects.",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "license": "MIT",
     "funding": "https://github.com/sponsors/basmilius",
     "homepage": "https://github.com/basmilius/http-client",
@@ -18,7 +18,7 @@
         "vue 3"
     ],
     "scripts": {
-        "build": "bun --bun build.ts"
+        "build": "bun --bun build.ts && tsc && tsc-alias"
     },
     "engines": {
         "node": ">=23"
@@ -48,7 +48,8 @@
         "@types/bun": "^1.2.2",
         "@types/luxon": "^3.4.2",
         "luxon": "^3.5.0",
-        "oxc-transform": "^0.48.2",
+        "tsc-alias": "^1.8.10",
+        "typescript": "^5.7.3",
         "vue": "^3.5.13"
     },
     "peerDependencies": {
