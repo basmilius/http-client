@@ -1,4 +1,4 @@
-import type { Constructor } from '@/util';
+import type { Constructor } from '@basmilius/utils';
 
 export default function <T extends Constructor>(Parent: T): T {
     return class extends Parent {

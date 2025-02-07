@@ -1,6 +1,6 @@
+import { DateTime } from 'luxon';
 import { adapter } from '@/decorator';
 import { Paginated } from '@/dto';
-import { formatFileDateTime } from '@/util';
 
 @adapter
 export class HttpAdapter {
@@ -15,15 +15,17 @@ export class HttpAdapter {
     }
 
     public static parseFileNameFromContentDispositionHeader(header: string): string {
+        const defaultFilename = `download-${DateTime.now().toFormat('yyyy-MM-dd HH-mm-ss')}`;
+
         if (!header.startsWith('attachment')) {
-            return `download-${formatFileDateTime()}`;
+            return defaultFilename;
         }
 
         const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
         const matches = filenameRegex.exec(header);
 
         if ((matches?.length || 0) < 2) {
-            return `download-${formatFileDateTime()}`;
+            return defaultFilename;
         }
 
         return matches[1]

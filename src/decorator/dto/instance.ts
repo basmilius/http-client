@@ -1,4 +1,4 @@
-import type { Descriptors } from '@/util';
+import type { Descriptors } from '@basmilius/utils';
 import type { ARGS, CHILDREN, DESCRIPTORS, DIRTY, NAME, PARENT, PARENT_KEY, PROPERTIES, TRACK, TRIGGER } from './symbols';
 
 export default interface DtoInstance<T> extends Function {
@@ -15,9 +15,7 @@ export default interface DtoInstance<T> extends Function {
 
     /**
      * Clones the DTO starting with the original arguments
-     * and replaces them with the current values. Unfortunately
-     * this is the only way at this point. It's a good thing
-     * we don't need cloning a lot :)
+     * and replaces them with the current values.
      */
     clone(): DtoInstance<T>;
 

@@ -1,7 +1,7 @@
+import { DateTime } from 'luxon';
 import { HttpAdapter } from '@/adapter';
 import { BlobResponse, Paginated } from '@/dto';
 import type { HttpMethod, HttpStatusCode } from '@/type';
-import { formatFileDateTime } from '@/util';
 import BaseResponse from './BaseResponse';
 import HttpClient from './HttpClient';
 import type QueryString from './QueryString';
@@ -115,7 +115,7 @@ export default class RequestBuilder {
 
         let filename = response.headers.has('content-disposition')
             ? HttpAdapter.parseFileNameFromContentDispositionHeader(response.headers.get('content-disposition'))
-            : `download-${formatFileDateTime()}`;
+            : `download-${DateTime.now().toFormat('yyyy-MM-dd HH-mm-ss')}`;
 
         return new BlobResponse(
             await response.blob(),

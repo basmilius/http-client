@@ -1,4 +1,4 @@
-import { Constructor, getPrototypeChain, setObjectMethod, setObjectValue } from '@/util';
+import { type Constructor, getPrototypeChain, setObjectMethod, setObjectValue } from '@basmilius/utils';
 import { OVERRIDE_CONSOLE_LOG } from './constant';
 import { instance, isDto } from './helper';
 import { DTO_CLASS_MAP } from './map';

@@ -1,5 +1,5 @@
+import type { Constructor } from '@basmilius/utils';
 import { customRef, markRaw } from 'vue';
-import type { Constructor } from '@/util';
 import { ARGS, DIRTY, TRACK, TRIGGER } from './symbols';
 import type DtoInstance from './instance';
 import arrayProxy from './arrayProxy';
