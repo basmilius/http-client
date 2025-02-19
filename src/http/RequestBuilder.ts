@@ -95,6 +95,12 @@ export default class RequestBuilder {
         return this;
     }
 
+    public signal(signal: AbortSignal | null = null): RequestBuilder {
+        this.#options.signal = signal;
+
+        return this;
+    }
+
     public async fetch<TResult>(): Promise<TResult> {
         return this.#execute()
             .then(r => r.json());
