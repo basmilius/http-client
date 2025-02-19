@@ -42,7 +42,7 @@
     },
     "sideEffects": false,
     "dependencies": {
-        "@basmilius/utils": "^1.7.0"
+        "@basmilius/utils": "^1.8.0"
     },
     "devDependencies": {
         "@types/bun": "^1.2.2",

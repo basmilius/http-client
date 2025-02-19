@@ -29,7 +29,7 @@
 
     "@babel/types": ["@babel/types@7.26.7", "", { "dependencies": { "@babel/helper-string-parser": "^7.25.9", "@babel/helper-validator-identifier": "^7.25.9" } }, "sha512-t8kDRGrKXyp6+tjUh7hw2RLyclsW4TRoRvRHtSyAX9Bb5ldlFh+90YAYY6awRXrlB4G5G2izNeGySpATlFzmOg=="],
 
-    "@basmilius/utils": ["@basmilius/utils@1.7.0", "", { "peerDependencies": { "luxon": "^3.5.0", "pinia": "^2.2.4" } }, "sha512-Df+mhdKWs0AESzdSzMg+MGlwPa1l8yhYMK4Ro5/ZBnYO1mGSM6qexpkGcgrmszi2kcKS14LCsTk+Y6MUyIcNAg=="],
+    "@basmilius/utils": ["@basmilius/utils@1.8.0", "", { "peerDependencies": { "luxon": "^3.5.0", "pinia": "^3.0.0" } }, "sha512-9VSXdFzq/Y27mKO/Fy18TRn95mNTRAg4/Q1GjVkeG/mPvL8hlJ6su0r6oozQHEe+ySZzgqFoamUrzT5+CwOn3A=="],
 
     "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.0", "", {}, "sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ=="],
 
