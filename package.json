@@ -45,7 +45,7 @@
         "@basmilius/utils": "^1.8.0"
     },
     "devDependencies": {
-        "@types/bun": "^1.2.2",
+        "@types/bun": "^1.2.3",
         "@types/luxon": "^3.4.2",
         "luxon": "^3.5.0",
         "tsc-alias": "^1.8.10",
