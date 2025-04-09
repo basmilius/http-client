@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { adapter } from '@/decorator';
-import { Paginated } from '@/dto';
+import { Paginated, RequestError, ValidationError } from '@/dto';
+import type { HttpStatusCode } from '@/type';
 
 @adapter
 export class HttpAdapter {
@@ -33,5 +34,34 @@ export class HttpAdapter {
             .replaceAll('\"', '')
             .replaceAll('\/', '-')
             .replaceAll('\:', '-');
+    }
+
+    public static parseRequestError(response: object, statusCode: HttpStatusCode): RequestError {
+        return new RequestError(
+            response['code'],
+            response['error'],
+            response['error_description'],
+            statusCode
+        );
+    }
+
+    public static parseValidationError(response: object): ValidationError {
+        let errors: Record<string, ValidationError>;
+
+        if (response['errors']) {
+            errors = {};
+
+            Object.entries(response['errors']).forEach(([key, value]) => {
+                errors[key] = HttpAdapter.parseValidationError(value as object);
+            });
+        }
+
+        return new ValidationError(
+            response['code'],
+            response['error'],
+            response['error_description'],
+            errors,
+            response['params']
+        );
     }
 }

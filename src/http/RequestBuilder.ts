@@ -1,11 +1,10 @@
 import { DateTime } from 'luxon';
 import { HttpAdapter } from '@/adapter';
-import { BlobResponse, Paginated } from '@/dto';
+import { BlobResponse, Paginated, RequestError } from '@/dto';
 import type { HttpMethod, HttpStatusCode } from '@/type';
 import BaseResponse from './BaseResponse';
 import HttpClient from './HttpClient';
 import type QueryString from './QueryString';
-import RequestError from './RequestError';
 
 export default class RequestBuilder {
     get client(): HttpClient {
@@ -194,7 +193,11 @@ export default class RequestBuilder {
             const data = await response.json();
 
             if ('code' in data && 'error' in data && 'error_description' in data) {
-                throw new RequestError(data.code, data.error, data.error_description, response.status as HttpStatusCode);
+                if ('errors' in data) {
+                    throw HttpAdapter.parseValidationError(data);
+                }
+
+                throw HttpAdapter.parseRequestError(data, response.status as HttpStatusCode);
             }
 
             if (dataField && 'data' in data) {

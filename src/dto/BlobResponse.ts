@@ -1,7 +1,7 @@
 import { dto } from '@/decorator';
 
 @dto
-export class BlobResponse {
+export default class BlobResponse {
     get blob(): Blob {
         return this.#blob;
     }

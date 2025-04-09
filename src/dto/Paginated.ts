@@ -1,7 +1,7 @@
 import { dto } from '@/decorator';
 
 @dto
-export class Paginated<T> {
+export default class Paginated<T> {
     get items(): T[] {
         return this.#items;
     }
