@@ -6,7 +6,7 @@ import circularProtect from './circularProtect';
 /**
  * Trigger for when a dto property is being updated.
  */
-const triggerDto = circularProtect(function (dto: DtoInstance<unknown>, key: string | symbol, value: unknown, oldValue?: unknown): void {
+const triggerDto: (dto: DtoInstance<unknown>, key: string | symbol, value: unknown, oldValue?: unknown) => void = circularProtect(function (dto: DtoInstance<unknown>, key: string | symbol, value: unknown, oldValue?: unknown): void {
     const trigger = dto[TRIGGER];
     trigger(dto, key, value, oldValue);
 

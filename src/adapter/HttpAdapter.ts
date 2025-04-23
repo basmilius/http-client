@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
-import { adapter } from '@/decorator';
-import { Paginated, RequestError, ValidationError } from '@/dto';
-import type { HttpStatusCode } from '@/type';
+import { adapter } from '../decorator';
+import { Paginated, RequestError, ValidationError } from '../dto';
+import type { HttpStatusCode } from '../type';
 
 @adapter
 export class HttpAdapter {

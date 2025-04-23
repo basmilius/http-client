@@ -1,4 +1,4 @@
-import type { HttpStatusCode } from '@/type';
+import type { HttpStatusCode } from '../type';
 
 export default class BaseResponse<T> {
     get data(): T {

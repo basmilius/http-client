@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
-import { HttpAdapter } from '@/adapter';
-import { BlobResponse, Paginated, RequestError } from '@/dto';
-import type { HttpMethod, HttpStatusCode } from '@/type';
+import { HttpAdapter } from '../adapter';
+import { BlobResponse, Paginated, RequestError } from '../dto';
+import type { HttpMethod, HttpStatusCode } from '../type';
 import BaseResponse from './BaseResponse';
 import HttpClient from './HttpClient';
 import type QueryString from './QueryString';

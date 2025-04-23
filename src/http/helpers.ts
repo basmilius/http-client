@@ -1,4 +1,4 @@
-import { RequestError, ValidationError } from '@/dto';
+import { RequestError, ValidationError } from '../dto';
 
 export function isRequestError(obj: unknown): obj is RequestError {
     return obj instanceof RequestError;

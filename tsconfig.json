@@ -1,17 +1,17 @@
 {
     "compilerOptions": {
-        "target": "esnext",
+        "target": "es2022",
         "lib": [
             "dom",
             "dom.iterable",
-            "esnext"
+            "es2022"
         ],
         "allowJs": true,
         "skipLibCheck": true,
         "strict": false,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
-        "module": "esnext",
+        "module": "es2022",
         "moduleResolution": "bundler",
         "resolveJsonModule": false,
         "isolatedModules": true,
@@ -22,10 +22,7 @@
         "declaration": true,
         "declarationDir": "dist",
         "emitDeclarationOnly": true,
-        "experimentalDecorators": true,
-        "paths": {
-            "@/*": ["src/*"]
-        }
+        "experimentalDecorators": true
     },
     "include": [
         "src/**/*.ts"

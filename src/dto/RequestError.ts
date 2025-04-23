@@ -1,5 +1,5 @@
-import { dto } from '@/decorator';
-import type { HttpStatusCode } from '@/type';
+import { dto } from '../decorator';
+import type { HttpStatusCode } from '../type';
 
 @dto
 export default class RequestError {

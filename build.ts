@@ -1,3 +1,4 @@
+import { generateDts } from '@basmilius/vite-vue-preset/oxc';
 import { build } from 'bun';
 
 try {
@@ -12,8 +13,12 @@ try {
         format: 'esm',
         target: 'browser',
         external: [
+            '@basmilius/utils',
             'luxon',
             'vue'
+        ],
+        plugins: [
+            generateDts()
         ]
     });
 } catch (err) {

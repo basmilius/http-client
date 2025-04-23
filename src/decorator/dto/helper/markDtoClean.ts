@@ -8,7 +8,7 @@ import triggerDto from './triggerDto';
 /**
  * Marks the given dto clean.
  */
-const markDtoClean = circularProtect(function (obj: unknown): void {
+const markDtoClean: (obj: unknown) => void = circularProtect(function (obj: unknown): void {
     assertDto(obj);
 
     if (obj[DIRTY]) {

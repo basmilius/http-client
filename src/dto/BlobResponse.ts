@@ -1,4 +1,4 @@
-import { dto } from '@/decorator';
+import { dto } from '../decorator';
 
 @dto
 export default class BlobResponse {

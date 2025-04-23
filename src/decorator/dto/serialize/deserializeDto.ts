@@ -9,7 +9,7 @@ const CACHE: Record<string, unknown> = {};
 
 export default function ([, id, name, state, args]: SerializedDto): DtoInstance<unknown> {
     if (!(name in DTO_CLASS_MAP)) {
-        throw new Error(`[@marveld/http] Cannot restore @dto. Dto ${name} was not found.`);
+        throw new Error(`Cannot restore @dto. Dto ${name} was not found.`);
     }
 
     if (id in CACHE) {
