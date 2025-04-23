@@ -12,11 +12,7 @@ try {
         splitting: false,
         format: 'esm',
         target: 'browser',
-        external: [
-            '@basmilius/utils',
-            'luxon',
-            'vue'
-        ],
+        packages: 'external',
         plugins: [
             generateDts()
         ]
