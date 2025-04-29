@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This repository has been archived and the `@basmilius/http-client` package has been moved over to [basmilius/packages](https://github.com/basmilius/packages). The particular package can be found in the `packages/http-client` directory.
+
 # Http Client
 
 This repository contains the source code for the Http client that I use in personal Vue
